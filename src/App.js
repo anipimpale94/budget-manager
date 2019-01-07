@@ -46,8 +46,8 @@ class App extends Component {
             <h3 id="appName">Budget Manager</h3>
           </div>
           <div id="buttons">
-            <p id="signupButton" onClick={(word) => this.formSwtich("register")} className={this.state.register ? "contentForm selected":"contentForm"}>Sign In</p>
-            <p id="loginButton" onClick={(word) => this.formSwtich("login")} className={this.state.login ? "contentForm selected":"contentForm"}> Login</p>
+            <p id="signupButton" onClick={(word) => this.formSwtich("register")} className={this.state.register ? "contentForm selected":"contentForm"}>Register</p>
+            <p id="loginButton" onClick={(word) => this.formSwtich("login")} className={this.state.login ? "contentForm selected":"contentForm"}>Login</p>
           </div>
         </div>
           

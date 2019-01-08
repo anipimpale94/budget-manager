@@ -1,5 +1,4 @@
 from flask import Flask, request, render_template, jsonify
-import pandas as pd
 from flask_cors import CORS, cross_origin
 from User import User
 
@@ -26,12 +25,12 @@ def login_request():
         for user in UserList:
             if user.email == model.get('email'):
                 if user.password == model.get('password'):
-                    return jsonify(Name=user.name, Email=user.email)
+                    return jsonify(Name=user.name, Email=user.email, message="Login Successful")
                 else:
-                    return jsonify(error="Incorrect Password Detail")
-        return jsonify(error="Incorrect Login Detail")
+                    return jsonify(error="Incorrect Password")
+        return jsonify(error="Incorrect Login Details")
     else:
-        return ('', 204)
+        return jsonify(error="Please use Post call")
 
 @app.route("/register", methods=['POST'])
 def register_request():
@@ -39,11 +38,14 @@ def register_request():
     global user_id
     if request.method == 'POST':
         user_id += 1
+        for user in UserList:
+            if user.email == model.get('email'):
+                return jsonify(error="User Already Exist")
         new_user = User(user_id, model.get('name'), model.get('email'), model.get('password'))
         UserList.append(new_user)
-        return jsonify(error="Registration Successful")
+        return jsonify(Name=new_user.name, Email=new_user.email, message="Registration Successful")
     else:
-        return ('', 204)
+        return jsonify(error="Please use Post call")
 
 if __name__ == '__main__':
     app.run(debug=True)

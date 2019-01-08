@@ -4,7 +4,6 @@ class User(object):
     email = ""
     password = ""
 
-    # The class "constructor" - It's actually an initializer 
     def __init__(self, id, name, email, password):
         self.id = id
         self.name = name

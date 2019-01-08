@@ -4,14 +4,20 @@
     border: 1px solid grey;
     padding: 30px;
 }
+.error {
+  color: red;
+  margin: 5px;
+  font-size: 12px;
+  font-style: italic;
+}
 
-@media all and (min-width: 480px) {
-    .Login {
-      padding: 60px 0;
-    }
-  
-    .Login form {
-      margin: 0 auto;
-      max-width: 320px;
-    }
-  }
+.btn {
+  width: auto !important;
+  border: 1px solid #ced4da !important;
+  margin: auto !important;
+}
+
+.btn:hover {
+  background-color: grey;
+  color: white;
+}

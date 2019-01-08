@@ -1,9 +1,9 @@
+// libraries
 import React, { Component } from 'react';
-// import logo from './logo.svg';
 
 // components
-import Login from './components/login';
-import Register from './components/register'
+import Account from './components/account';
+import Main from './components/main';
 
 // css
 import './css/App.css';
@@ -14,26 +14,32 @@ class App extends Component {
     super(props);
 
     this.state = {
-      email: "",
-      password: "",
-      login: false,
-      register: true
+      userActive: false,
+      Name: "",
+      logAction: "Login"
     };
+
+    this.accountHandler = this.accountHandler.bind(this);
+    this.accountLogOut = this.accountLogOut.bind(this);
   }
 
-  formSwtich = (word) => {
-    var register,login;
-    if(word === "register") {
-      register = true;
-      login = false;
-    }
-    else {
-      login = true;
-      register = false;
-    }    
+  accountLogOut = () => {
     this.setState({
-      login: login,
-      register: register
+      userActive: false,
+      Name: "",
+    });
+  }
+
+  accountHandler = (activity, name) => {
+    this.setState({
+      userActive: activity,
+      Name: name,
+    });
+  }
+
+  formSwtich = (action) => {
+    this.setState({
+      logAction: action
     });
   }
 
@@ -44,17 +50,18 @@ class App extends Component {
         <div className="header">
           <div>
             <h3 id="appName">Budget Manager</h3>
-          </div>
-          <div id="buttons">
-            <p id="signupButton" onClick={(word) => this.formSwtich("register")} className={this.state.register ? "contentForm selected":"contentForm"}>Register</p>
-            <p id="loginButton" onClick={(word) => this.formSwtich("login")} className={this.state.login ? "contentForm selected":"contentForm"}>Login</p>
-          </div>
+          </div>   
+          { 
+            this.state.userActive ? null : 
+            <div id="buttons">
+              <p id="signupButton" onClick={(word) => this.formSwtich("Register")} className={this.state.logAction == "Register" ? "contentForm selected":"contentForm"}>Register</p>
+              <p id="loginButton" onClick={(word) => this.formSwtich("Login")} className={this.state.logAction == "Login" ? "contentForm selected":"contentForm"}>Login</p>
+            </div> 
+          }      
         </div>
-          
-        <div>
-          { this.state.register?<Register /> : null }
-          { this.state.login? <Login /> : null }
-        </div>
+        
+        { this.state.userActive ? <Main Name={this.state.Name} Logout={this.accountLogOut} /> : <Account accountHandler={this.accountHandler} action={this.state.logAction} /> }
+        
       </div>
     );
   }

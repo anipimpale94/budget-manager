@@ -1,3 +1,4 @@
+// libraries
 import React, { Component } from 'react';
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import axios from 'axios';
@@ -13,7 +14,8 @@ class Login extends Component {
     
         this.state = {
           email: "",
-          password: ""
+          password: "",
+          error: "",
         };
     }
     
@@ -29,10 +31,10 @@ class Login extends Component {
     
     handleSubmit = event => {
         event.preventDefault();         
-        console.log(this.state.email + "\n" + this.state.password);
         axios({
             method: 'POST',
-            url: 'http://127.0.0.1:5000/login',
+            // later change to public IP
+            url: 'http://localhost:5000/login',
             data: {
                 email: this.state.email,
                 password: this.state.password
@@ -41,10 +43,22 @@ class Login extends Component {
         })
         .then(res => {
             console.log(res.data);
-        }).catch(err => console.warn('error:', err));
+            if(res.data.Email != null) {
+                this.props.handler(res.data.Email, res.data.Name)
+            } else {
+                this.setState({
+                    error: res.data.error
+                });
+            }
+            
+        }).catch(err => {
+            console.warn('error:', err)
+            this.setState({
+                error: err
+            });
+        });
     }
     
-
     render() {
         return (
             <div className="loginForm">
@@ -52,20 +66,21 @@ class Login extends Component {
                     <FormGroup controlId="email" bsSize="large">
                         <ControlLabel>Email</ControlLabel>
                         <FormControl
-                        autoFocus
-                        type="email"
-                        value={this.state.email}
-                        onChange={this.handleChange}
+                            autoFocus
+                            type="email"
+                            value={this.state.email}
+                            onChange={this.handleChange}
                         />
                     </FormGroup>
                     <FormGroup controlId="password" bsSize="large">
                         <ControlLabel>Password</ControlLabel>
                         <FormControl
-                        value={this.state.password}
-                        onChange={this.handleChange}
-                        type="password"
+                            value={this.state.password}
+                            onChange={this.handleChange}
+                            type="password"
                         />
                     </FormGroup>
+                    { this.state.error === "" ? null : <div className="error">*{this.state.error}</div> }
                     <Button
                         block
                         bsSize="large"

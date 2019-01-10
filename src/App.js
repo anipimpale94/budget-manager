@@ -16,11 +16,12 @@ class App extends Component {
     this.state = {
       userActive: false,
       Name: "",
+      Id: 0, 
       logAction: "Login"
     };
 
     this.accountHandler = this.accountHandler.bind(this);
-    this.accountLogOut = this.accountLogOut.bind(this);
+    // this.accountLogOut = this.accountLogOut.bind(this);
   }
 
   accountLogOut = () => {
@@ -30,10 +31,11 @@ class App extends Component {
     });
   }
 
-  accountHandler = (activity, name) => {
+  accountHandler = (name, id) => {
     this.setState({
-      userActive: activity,
+      userActive: true,
       Name: name,
+      Id: id
     });
   }
 
@@ -51,16 +53,20 @@ class App extends Component {
           <div>
             <h3 id="appName">Budget Manager</h3>
           </div>   
-          { 
-            this.state.userActive ? null : 
-            <div id="buttons">
+          <div id="buttons">
+          {
+            this.state.userActive ?
+            <p id="logOutButton" onClick={() => this.accountLogOut()} className="contentForm ">Logout</p> :
+            <div>
               <p id="signupButton" onClick={(word) => this.formSwtich("Register")} className={this.state.logAction == "Register" ? "contentForm selected":"contentForm"}>Register</p>
               <p id="loginButton" onClick={(word) => this.formSwtich("Login")} className={this.state.logAction == "Login" ? "contentForm selected":"contentForm"}>Login</p>
-            </div> 
-          }      
+            </div>
+          }
+          
+          </div>
         </div>
         
-        { this.state.userActive ? <Main Name={this.state.Name} Logout={this.accountLogOut} /> : <Account accountHandler={this.accountHandler} action={this.state.logAction} /> }
+        { this.state.userActive ? <Main Name={this.state.Name} /> : <Account accountHandler={this.accountHandler} action={this.state.logAction} /> }
         
       </div>
     );

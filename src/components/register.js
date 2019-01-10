@@ -46,7 +46,7 @@ class Register extends Component {
         .then(res => {
             console.log(res.data);
             if(res.data.Email != null) {
-                this.props.handler(res.data.Email, res.data.Name)
+                this.props.handler(res.data.Name, res.data.Id)
             } else {
                 this.setState({
                     error: res.data.error

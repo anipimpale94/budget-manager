@@ -11,8 +11,18 @@ class Main extends Component {
         super(props);
     
         this.state = {
-          Name: this.props.Name,
+            Name: this.props.Name,
+            id: this.props.Id
         };    
+    }
+
+    componentDidMount() {
+        axios.get(`http://localhost:5000/budget/` + this.state.id)
+        .then(res => {
+            // const persons = res.data;
+            // this.setState({ persons });
+            console.log(res.data)
+        })
     }
 
     handleLogOut = () => {
@@ -23,11 +33,6 @@ class Main extends Component {
         return(
             <div>
                 <h1>Hello, {this.state.Name}!</h1>
-                <Button
-                    block
-                    bsSize="large"
-                    onClick={this.handleLogOut}
-                >Logout</Button>
             </div>        
         );
     }

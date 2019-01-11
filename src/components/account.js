@@ -11,28 +11,22 @@ class Account extends Component {
         super(props);
     
         this.state = {
-          email: "",
-          name: "",
           login: true,
-          register: false
+          register: false,
+          error: ""
         };
     
         this.handler = this.accountHandler.bind(this)
     }
     
-    accountHandler = (email, name) => {
-        this.setState({
-          email: email,
-          name: name,
-        })
-
-        this.props.accountHandler(true, name);
+    accountHandler = (name, id) => {
+        this.props.accountHandler(name, id);
     }
 
     render() {
         return(
             <div>
-                { this.props.action == "Login" ? <Login handler={this.handler} /> : <Register handler={this.handler} /> }
+                { this.props.action === "Login" ? <Login handler={this.handler} /> : <Register handler={this.handler} /> }
             </div>
         );
     }

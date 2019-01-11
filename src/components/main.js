@@ -1,7 +1,6 @@
 // libraries
 import React, { Component } from 'react';
-import axios from 'axios';
-import { Button } from "react-bootstrap";
+// import axios from 'axios';
 
 // css
 import '../css/main.css';
@@ -11,18 +10,16 @@ class Main extends Component {
         super(props);
     
         this.state = {
-            Name: this.props.Name,
-            id: this.props.Id
+            name: this.props.name,
+            error: ""
         };    
     }
 
     componentDidMount() {
-        axios.get(`http://localhost:5000/budget/` + this.state.id)
-        .then(res => {
-            // const persons = res.data;
-            // this.setState({ persons });
-            console.log(res.data)
-        })
+        // axios.get(`http://localhost:5000/budget/`)
+        // .then(res => {
+        //     console.log(res.data)
+        // })
     }
 
     handleLogOut = () => {
@@ -32,7 +29,7 @@ class Main extends Component {
     render() {
         return(
             <div>
-                <h1>Hello, {this.state.Name}!</h1>
+                <h1>Hello, {this.state.name}!</h1>
             </div>        
         );
     }

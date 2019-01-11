@@ -33,29 +33,22 @@ class Login extends Component {
         event.preventDefault();         
         axios({
             method: 'POST',
-            // later change to public IP
             url: 'http://localhost:5000/login',
             data: {
                 email: this.state.email,
                 password: this.state.password
             },
-            config: { headers: {'content-type': 'application/json' }}      
         })
         .then(res => {
-            console.log(res.data);
-            if(res.data.Email != null) {
-                this.props.handler(res.data.Name, res.data.Id)
+            if(res.data.id > -1) {
+                this.props.handler(res.data.name, res.data.id)
             } else {
                 this.setState({
                     error: res.data.error
                 });
-            }
-            
+            }            
         }).catch(err => {
             console.warn('error:', err)
-            this.setState({
-                error: err
-            });
         });
     }
     

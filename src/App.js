@@ -1,5 +1,6 @@
 // libraries
 import React, { Component } from 'react';
+import axios from 'axios';
 
 // components
 import Account from './components/account';
@@ -15,27 +16,44 @@ class App extends Component {
 
     this.state = {
       userActive: false,
-      Name: "",
-      Id: 0, 
-      logAction: "Login"
+      name: "",
+      id: 0, 
+      logAction: "Login",
+      error: ""
     };
 
     this.accountHandler = this.accountHandler.bind(this);
-    // this.accountLogOut = this.accountLogOut.bind(this);
+  }
+
+  componentDidMount() {
+    // axios.get(`http://localhost:5000/` + sessionStorage.getItem('token'))
+    // .then(res => {
+    //   console.log(res)
+    //   this.setstate({
+    //     useractive: res.data.activity,
+    //     name: res.data.name,
+    //     id: res.data.id,
+    //     error: res.data.error,
+    //   })
+    // })
+    // .catch(err => {
+    //   console.warn('error:', err)
+    // });
   }
 
   accountLogOut = () => {
     this.setState({
       userActive: false,
-      Name: "",
+      name: "",
+      id: -1
     });
   }
 
   accountHandler = (name, id) => {
     this.setState({
       userActive: true,
-      Name: name,
-      Id: id
+      name: name,
+      id: id
     });
   }
 
@@ -66,7 +84,7 @@ class App extends Component {
           </div>
         </div>
         
-        { this.state.userActive ? <Main Name={this.state.Name} /> : <Account accountHandler={this.accountHandler} action={this.state.logAction} /> }
+        { this.state.userActive ? <Main name={this.state.name} /> : <Account accountHandler={this.accountHandler} action={this.state.logAction} /> }
         
       </div>
     );

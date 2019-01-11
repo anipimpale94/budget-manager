@@ -44,19 +44,15 @@ class Register extends Component {
             config: { headers: {'content-type': 'application/json' }}      
         })
         .then(res => {
-            console.log(res.data);
-            if(res.data.Email != null) {
-                this.props.handler(res.data.Name, res.data.Id)
+            if(res.data.id > 0) {
+                this.props.handler(res.data.name, res.data.id)
             } else {
                 this.setState({
                     error: res.data.error
                 });
             }
-        }).catch(err => err => {
+        }).catch(err => {
             console.warn('error:', err)
-            this.setState({
-                error: err
-            });
         });
     }
     

@@ -68,7 +68,7 @@ def get_budget_list(user_id):
             if item.user_id == user_id:
                 Result.append(item)
         
-        return(message="Successful")
+        return jsonify(message="Successful")
     else: 
         return jsonify(error="Please Login")
 

@@ -18,9 +18,9 @@ def check_session():
         if token:
             user = User.query.filter_by(email=identity).first();
             access_token = token.token
-            return jsonify(active=true, name=user.name, id=user.id, access_token=access_token, message="Login Successful")
+            return jsonify(active="true", name=user.name, id=user.id, access_token=access_token, message="Login Successful")
         else:
-            return jsonify(active=false, message="Invalid Token")
+            return jsonify(active="false", message="Invalid Token")
     else:     
         return
     

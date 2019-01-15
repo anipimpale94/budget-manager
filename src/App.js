@@ -29,7 +29,7 @@ class App extends Component {
     let token = localStorage.token;
     axios.get(`http://localhost:5000/api/session?jwt=` + token)
     .then(res => {
-      if(res.data.active) {
+      if(res.data.active === "true") {
         this.setState({
           userActive: true,
           name: res.data.name,

@@ -2,7 +2,7 @@
 from flask import request, jsonify
 from time import gmtime, strftime
 import datetime
-from flask_jwt_extended import (jwt_required, create_access_token)
+from flask_jwt_extended import (jwt_required, create_access_token, get_jwt_identity)
 
 # self made
 from app import app, db, jwt
@@ -12,9 +12,18 @@ from Models import *
 @app.route("/api/session", methods=['GET'])
 @jwt_required
 def check_session():
-    model = request.get_json(silent=True)
-    print(model)
-    return jsonify(message="Login Successful")
+    if request.method == 'GET':
+        identity = get_jwt_identity()
+        token = JWT.query.filter_by(token=request.args.get("jwt")).filter(JWT.expiry_date < datetime.datetime.now()).first()
+        if token:
+            user = User.query.filter_by(email=identity).first();
+            access_token = token.token
+            return jsonify(active=true, name=user.name, id=user.id, access_token=access_token, message="Login Successful")
+        else:
+            return jsonify(active=false, message="Invalid Token")
+    else:     
+        return
+    
 
 # function to login user
 @app.route("/api/login", methods=['POST'])

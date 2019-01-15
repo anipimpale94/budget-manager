@@ -25,17 +25,17 @@ class App extends Component {
     this.accountHandler = this.accountHandler.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     let token = localStorage.token;
     axios.get(`http://localhost:5000/api/session?jwt=` + token)
     .then(res => {
-      console.log(res)
-      // this.setstate({
-      //   useractive: res.data.activity,
-      //   name: res.data.name,
-      //   id: res.data.id,
-      //   error: res.data.error,
-      // })
+      if(res.data.active) {
+        this.setState({
+          userActive: true,
+          name: res.data.name,
+          id: res.data.id,
+        })
+      }     
     })
     .catch(err => {
       console.warn('error:', err)

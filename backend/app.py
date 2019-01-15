@@ -10,7 +10,7 @@ load_dotenv()
 
 app = Flask(__name__)
 app.config['JWT_TOKEN_LOCATION'] = ['query_string']
-app.config['JWT_SECRET_KEY'] = 'super-secret'  # Change this!
+app.config['JWT_SECRET_KEY'] = 'super-secret'
 jwt = JWTManager(app)
 CORS(app)
 app.secret_key = 'test secret key'

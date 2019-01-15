@@ -1,6 +1,6 @@
 // libraries
 import React, { Component } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 
 // components
 import Account from './components/account';

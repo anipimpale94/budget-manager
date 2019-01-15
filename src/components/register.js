@@ -31,10 +31,12 @@ class Register extends Component {
     }
     
     handleSubmit = event => {
+        this.setState({
+            error: ""
+        });
         event.preventDefault();         
         axios({
             method: 'POST',
-            // later change to public IP
             url: 'http://localhost:5000/register',
             data: {
                 name: this.state.name,                
@@ -46,6 +48,7 @@ class Register extends Component {
         .then(res => {
             if(res.data.id > 0) {
                 this.props.handler(res.data.name, res.data.id)
+                console.log(res.data.message);
             } else {
                 this.setState({
                     error: res.data.error

@@ -24,3 +24,5 @@ yarn-error.log*
 
 .vscode
 backend/__pycache__
+backend/.env
+backend/Models/__pycache__

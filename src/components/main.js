@@ -1,6 +1,6 @@
 // libraries
 import React, { Component } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 
 // css
 import '../css/main.css';
@@ -16,10 +16,12 @@ class Main extends Component {
     }
 
     componentDidMount() {
-        // axios.get(`http://localhost:5000/budget/`)
-        // .then(res => {
-        //     console.log(res.data)
-        // })
+        axios.get(`http://localhost:5000/budget`)
+        .then(res => {
+            console.log(res.data)
+        }).catch(err => {
+            console.warn('error:', err)
+        });
     }
 
     handleLogOut = () => {

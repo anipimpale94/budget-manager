@@ -30,6 +30,9 @@ class Login extends Component {
     }
     
     handleSubmit = event => {
+        this.setState({
+            error: ""
+        });
         event.preventDefault();         
         axios({
             method: 'POST',
@@ -42,6 +45,7 @@ class Login extends Component {
         .then(res => {
             if(res.data.id > -1) {
                 this.props.handler(res.data.name, res.data.id)
+                console.log(res.data.message);
             } else {
                 this.setState({
                     error: res.data.error

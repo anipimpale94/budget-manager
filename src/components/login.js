@@ -36,7 +36,7 @@ class Login extends Component {
         event.preventDefault();         
         axios({
             method: 'POST',
-            url: 'http://localhost:5000/login',
+            url: 'http://localhost:5000/api/login',
             data: {
                 email: this.state.email,
                 password: this.state.password
@@ -44,7 +44,8 @@ class Login extends Component {
         })
         .then(res => {
             if(res.data.id > -1) {
-                this.props.handler(res.data.name, res.data.id)
+                this.props.handler(res.data.name, res.data.id, res.data.access_token);
+                localStorage.setItem('token', res.data.access_token);
                 console.log(res.data.message);
             } else {
                 this.setState({

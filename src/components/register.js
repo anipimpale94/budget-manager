@@ -37,7 +37,7 @@ class Register extends Component {
         event.preventDefault();         
         axios({
             method: 'POST',
-            url: 'http://localhost:5000/register',
+            url: 'http://localhost:5000/api/register',
             data: {
                 name: this.state.name,                
                 email: this.state.email,
@@ -47,7 +47,8 @@ class Register extends Component {
         })
         .then(res => {
             if(res.data.id > 0) {
-                this.props.handler(res.data.name, res.data.id)
+                this.props.handler(res.data.name, res.data.id, res.data.access_token);
+                localStorage.setItem('token', res.data.access_token);
                 console.log(res.data.message);
             } else {
                 this.setState({

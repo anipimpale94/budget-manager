@@ -5,9 +5,13 @@ import pymysql
 from flask_sqlalchemy import SQLAlchemy
 import os, sys
 from dotenv import load_dotenv
+from flask_jwt_extended import (JWTManager)
 load_dotenv()
 
 app = Flask(__name__)
+app.config['JWT_TOKEN_LOCATION'] = ['query_string']
+app.config['JWT_SECRET_KEY'] = 'super-secret'  # Change this!
+jwt = JWTManager(app)
 CORS(app)
 app.secret_key = 'test secret key'
 ConnectionString = "mysql+pymysql://%s:%s@%s:%s/%s?charset=utf8mb4" \

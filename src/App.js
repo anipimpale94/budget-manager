@@ -1,6 +1,6 @@
 // libraries
 import React, { Component } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 
 // components
 import Account from './components/account';
@@ -19,26 +19,27 @@ class App extends Component {
       name: "",
       id: 0, 
       logAction: "Login",
-      error: ""
+      error: "",
     };
 
     this.accountHandler = this.accountHandler.bind(this);
   }
 
   componentDidMount() {
-    // axios.get(`http://localhost:5000/` + sessionStorage.getItem('token'))
-    // .then(res => {
-    //   console.log(res)
-    //   this.setstate({
-    //     useractive: res.data.activity,
-    //     name: res.data.name,
-    //     id: res.data.id,
-    //     error: res.data.error,
-    //   })
-    // })
-    // .catch(err => {
-    //   console.warn('error:', err)
-    // });
+    let token = localStorage.token;
+    axios.get(`http://localhost:5000/api/session?jwt=` + token)
+    .then(res => {
+      console.log(res)
+      // this.setstate({
+      //   useractive: res.data.activity,
+      //   name: res.data.name,
+      //   id: res.data.id,
+      //   error: res.data.error,
+      // })
+    })
+    .catch(err => {
+      console.warn('error:', err)
+    });
   }
 
   accountLogOut = () => {
@@ -53,7 +54,7 @@ class App extends Component {
     this.setState({
       userActive: true,
       name: name,
-      id: id
+      id: id,
     });
   }
 
@@ -76,8 +77,8 @@ class App extends Component {
             this.state.userActive ?
             <p id="logOutButton" onClick={() => this.accountLogOut()} className="contentForm ">Logout</p> :
             <div>
-              <p id="signupButton" onClick={(word) => this.formSwtich("Register")} className={this.state.logAction == "Register" ? "contentForm selected":"contentForm"}>Register</p>
-              <p id="loginButton" onClick={(word) => this.formSwtich("Login")} className={this.state.logAction == "Login" ? "contentForm selected":"contentForm"}>Login</p>
+              <p id="signupButton" onClick={(word) => this.formSwtich("Register")} className={this.state.logAction === "Register" ? "contentForm selected":"contentForm"}>Register</p>
+              <p id="loginButton" onClick={(word) => this.formSwtich("Login")} className={this.state.logAction === "Login" ? "contentForm selected":"contentForm"}>Login</p>
             </div>
           }
           

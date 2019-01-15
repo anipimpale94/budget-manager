@@ -16,7 +16,7 @@ class Main extends Component {
     }
 
     componentDidMount() {
-        axios.get(`http://localhost:5000/budget`)
+        axios.get(`http://localhost:5000/api/budget`)
         .then(res => {
             console.log(res.data)
         }).catch(err => {

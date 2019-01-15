@@ -10,4 +10,4 @@ class Portfolio(db.Model):
     modify_date = db.Column(db.DateTime)
 
     def __repr__(self):
-        return '<user %s>' % self.subject
+        return '<portfolio %s>' % self.subject

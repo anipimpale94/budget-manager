@@ -26,8 +26,7 @@ class App extends Component {
   }
 
   componentWillMount() {
-    let token = localStorage.token;
-    axios.get(`http://localhost:5000/api/session?jwt=` + token)
+    axios.get(`http://localhost:5000/api/session?jwt=` + localStorage.token)
     .then(res => {
       if(res.data.active === "true") {
         this.setState({
@@ -36,17 +35,23 @@ class App extends Component {
           id: res.data.id,
         })
       }     
-    })
-    .catch(err => {
+    }).catch(err => {
       console.warn('error:', err)
     });
   }
 
   accountLogOut = () => {
-    this.setState({
-      userActive: false,
-      name: "",
-      id: -1
+    axios.get(`http://localhost:5000/api/logout?jwt=` + localStorage.token)
+    .then(res => {
+      if(res.data.active === "false") {
+        this.setState({
+          userActive: false,
+          name: "",
+          id: -1
+        });
+      }     
+    }).catch(err => {
+      console.warn('error:', err)
     });
   }
 

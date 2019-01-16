@@ -1,5 +1,32 @@
 # This file may be used to create an environment using:
 # $ conda create --name <env> --file <this file>
 # platform: win-64
+asn1crypto=0.24.0=py37_1003
+ca-certificates=2018.11.29=ha4d7672_0
+certifi=2018.11.29=py37_1000
+cffi=1.11.5=py37hfa6e2cd_1001
+click=7.0=py_0
+cryptography=2.3.1=py37h74b6da3_1000
+flask=1.0.2=py_2
+flask-cors=3.0.7=py_0
+flask-jwt-extended=3.15.0=py_0
+flask-sqlalchemy=2.3.2=py_0
+idna=2.8=py37_1000
+itsdangerous=1.1.0=py_0
+jinja2=2.10=py_1
+markupsafe=1.1.0=py37hfa6e2cd_1000
+openssl=1.0.2p=hfa6e2cd_1002
+pip=18.1=py37_1000
+pycparser=2.19=py_0
+pyjwt=1.7.1=py_0
+pymysql=0.8.1=py_0
+python=3.7.1=hc182675_1000
+python-dotenv=0.10.1=py_0
+setuptools=40.6.3=py37_0
+six=1.12.0=py37_1000
+sqlalchemy=1.2.16=py37hfa6e2cd_1000
 vc=14=0
 vs2015_runtime=14.0.25420=0
+werkzeug=0.14.1=py_0
+wheel=0.32.3=py37_0
+wincertstore=0.2=py37_1002

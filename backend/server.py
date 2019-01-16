@@ -1,6 +1,7 @@
 # libraries
 from flask import request, jsonify
 from time import gmtime, strftime
+from sqlalchemy import and_
 import datetime
 from flask_jwt_extended import (jwt_required, create_access_token, get_jwt_identity)
 
@@ -14,7 +15,7 @@ from Models import *
 def check_session():
     if request.method == 'GET':
         identity = get_jwt_identity()
-        token = JWT.query.filter_by(token=request.args.get("jwt")).filter(JWT.expiry_date < datetime.datetime.now()).first()
+        token = JWT.query.filter( and_ ((JWT.token == request.args.get("jwt")), (JWT.expiry_date > datetime.datetime.now())) ).first()
         if token:
             user = User.query.filter_by(email=identity).first();
             access_token = token.token
@@ -61,9 +62,16 @@ def register_request():
         return jsonify(error="Please use POST call")
 
 # function for log out
-app.route("/api/logout", methods=['GET'])
+@app.route("/api/logout", methods=['GET'])
+@jwt_required
 def logout():
-    session.clear()
+    if request.method == 'GET':
+        token = JWT.query.filter( JWT.token == request.args.get("jwt") ).first()
+        db.session.delete(token)
+        db.session.commit()
+        return jsonify(active="false", message="Logout Successful")
+    else:
+        return jsonify(message="Logout Failed")
 
 # function for fetching budget portfolio
 @app.route("/api/budget", methods=['GET'])

@@ -1,5 +1,6 @@
 # libraries
-from flask import request, jsonify
+from flask import request, jsonify, Response
+import json
 from time import gmtime, strftime
 from sqlalchemy import and_
 import datetime
@@ -25,7 +26,6 @@ def check_session():
     else:     
         return
     
-
 # function to login user
 @app.route("/api/login", methods=['POST'])
 def login_request():   
@@ -75,11 +75,18 @@ def logout():
 
 # function for fetching budget portfolio
 @app.route("/api/budget", methods=['GET'])
+@jwt_required
 def get_budget_list():
     if request.method == 'GET':
-        return jsonify(message="Successful")
+        return jsonify(message="Test")
     else:
         return jsonify(error="Please use GET call")
+
+# testing
+@app.route("/api/portfolio", methods=['GET'])
+@jwt_required
+def portfolio_action():
+    return jsonify(message="message")
 
 # main call
 if __name__ == '__main__':

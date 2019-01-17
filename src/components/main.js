@@ -16,7 +16,17 @@ class Main extends Component {
     }
 
     componentDidMount() {
-        axios.get(`http://localhost:5000/api/budget`)
+        axios.get(`http://localhost:5000/api/budget?jwt=` + localStorage.token)
+        .then(res => {
+            console.log(res.data)
+        }).catch(err => {
+            console.warn('error:', err)
+        });
+
+        axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}` 
+        const AuthToken = 'Bearer '.concat(localStorage.token); 
+        console.log(AuthToken)
+        axios.get(`http://localhost:5000/api/portfolio`)
         .then(res => {
             console.log(res.data)
         }).catch(err => {

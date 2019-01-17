@@ -47,9 +47,8 @@ class Register extends Component {
         })
         .then(res => {
             if(res.data.id > 0) {
-                this.props.handler(res.data.name, res.data.id, res.data.access_token);
                 localStorage.setItem('token', res.data.access_token);
-                console.log(res.data.message);
+                this.props.handler(res.data.name, res.data.id, res.data.access_token);
             } else {
                 this.setState({
                     error: res.data.error

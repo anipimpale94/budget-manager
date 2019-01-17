@@ -43,10 +43,9 @@ class Login extends Component {
             },
         })
         .then(res => {
-            if(res.data.id > -1) {
-                this.props.handler(res.data.name, res.data.id, res.data.access_token);
+            if(res.data.id > -1) {                
                 localStorage.setItem('token', res.data.access_token);
-                console.log(res.data.message);
+                this.props.handler(res.data.name, res.data.id, res.data.access_token);
             } else {
                 this.setState({
                     error: res.data.error
